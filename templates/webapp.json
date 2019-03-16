@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "webAppName": {
+      "type": "string",
+      "metadata": {
+        "description": "Base name of the resource such as web app name and app service plan "
+      },
+      "minLength": 2
+    },
+    "appServicePlanName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the App Service Plan"
+      },
+      "minLength": 2
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2016-08-01",
+      "type": "Microsoft.Web/sites",
+      "kind": "app",
+      "name": "[parameters('webAppName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "serverFarmId" : "[resourceId(resourceGroup().name,'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+      }
+    }
+  ]
+}
