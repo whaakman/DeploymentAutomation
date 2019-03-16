@@ -2,7 +2,7 @@ param(
     [object] $WebhookData
 )
 
-$input = $WebhookBody | ConvertFrom-Json
+$input = (ConvertFrom-Json -InputObject $WebhookData.RequestBody)
 
 $customerName = $input.customerName
 
@@ -23,9 +23,9 @@ $aspName = "ASP-Standard"
 
 $templateURI = "https://raw.githubusercontent.com/whaakman/DeploymentAutomation/master/templates/webapp.json"
 
-New-AzResourceGroupDeployment `
+New-AzureRmResourceGroupDeployment `
          -name "CustomerDeployment" `
          -ResourceGroupName $rg `
-         -TemplateParameterUri $templateURI `
+         -TemplateUri $templateURI `
          -webAppName "APP-$customerName" `
          -appServicePlanName $aspName

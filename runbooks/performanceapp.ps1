@@ -2,10 +2,7 @@ param(
     [object] $WebhookData
 )
 
-$input = $WebhookBody | ConvertFrom-Json
-
-
-write-output $input
+$input = (ConvertFrom-Json -InputObject $WebhookData.RequestBody)
 
 $customerName = $input.customerName
 
@@ -24,10 +21,9 @@ $servicePrincipalConnection=Get-AutomationConnection -Name $connectionName
 $rg = "rg-WebApps"
 $aspName = "ASP-Performance"
 
-#change to templateURI
 $templateURI = "https://raw.githubusercontent.com/whaakman/DeploymentAutomation/master/templates/webapp.json"
 
-New-AzResourceGroupDeployment `
+New-AzureRmResourceGroupDeployment `
          -name "CustomerDeployment" `
          -ResourceGroupName $rg `
          -TemplateUri $templateURI `
