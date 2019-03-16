@@ -25,11 +25,11 @@ $rg = "rg-WebApps"
 $aspName = "ASP-Performance"
 
 #change to templateURI
-$templateFile = "C:\Users\whaak\OneDrive\Documenten\Code\Onboarding\templates\webapp.json"
+$templateURI = "https://raw.githubusercontent.com/whaakman/DeploymentAutomation/master/templates/webapp.json"
 
 New-AzResourceGroupDeployment `
          -name "CustomerDeployment" `
          -ResourceGroupName $rg `
-         -TemplateFile $templateFile `
+         -TemplateUri $templateURI `
          -webAppName "APP-$customerName" `
          -appServicePlanName $aspName

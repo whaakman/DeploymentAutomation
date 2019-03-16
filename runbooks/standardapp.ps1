@@ -21,12 +21,11 @@ $servicePrincipalConnection=Get-AutomationConnection -Name $connectionName
 $rg = "rg-WebApps"
 $aspName = "ASP-Standard"
 
-#change to templateURI
-$templateFile = "C:\Users\whaak\OneDrive\Documenten\Code\Onboarding\templates\webapp.json"
+$templateURI = "https://raw.githubusercontent.com/whaakman/DeploymentAutomation/master/templates/webapp.json"
 
 New-AzResourceGroupDeployment `
          -name "CustomerDeployment" `
          -ResourceGroupName $rg `
-         -TemplateFile $templateFile `
+         -TemplateParameterUri $templateURI `
          -webAppName "APP-$customerName" `
          -appServicePlanName $aspName
